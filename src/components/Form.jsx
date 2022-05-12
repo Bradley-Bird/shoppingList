@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Box, TextField, Button } from '@mui/material';
+import { Container, Box, TextField, Button, CssBaseline } from '@mui/material';
 import { useTodos } from '../context/TodoContext';
 
 function Form() {
@@ -14,6 +14,7 @@ function Form() {
 
   return (
     <Container>
+      <CssBaseline />
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           margin="normal"
