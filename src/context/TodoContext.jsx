@@ -1,32 +1,42 @@
 import { createContext, useContext, useReducer } from 'react';
 const initialEntry = [];
-const TodoContext = createContext();
-function todoReducer(state, action) {
+const CartContext = createContext();
+function cartReducer(state, action) {
   console.log(state);
   switch (action.type) {
     case 'ADD':
       console.log(state.length);
       return [{ id: Date.now(), entry: action.payload, done: false }, ...state];
+    case 'UPDATE':
+      return state.map((item) => {
+        if (item.id === action.payload.item.id) {
+          const { entry, done } = action.payload.item;
 
+          return { ...item, entry, done };
+        } else return item;
+      });
     default:
       return state;
   }
 }
-export const TodoProvider = ({ children }) => {
-  const [todos, dispatch] = useReducer(todoReducer, initialEntry);
+export const CartProvider = ({ children }) => {
+  const [cart, dispatch] = useReducer(cartReducer, initialEntry);
 
   const handleAdd = (input) => {
     dispatch({ type: 'ADD', payload: input });
   };
+  const handleUpdate = (update) => {
+    dispatch({ type: 'UPDATE', payload: update });
+  };
   return (
-    <TodoContext.Provider value={{ todos, handleAdd }}>
+    <CartContext.Provider value={{ cart, handleAdd }}>
       {children}
-    </TodoContext.Provider>
+    </CartContext.Provider>
   );
 };
 
-export const useTodos = () => {
-  const context = useContext(TodoContext);
+export const useCart = () => {
+  const context = useContext(CartContext);
 
   if (context === undefined) throw new Error('useTodos must be in a Provider');
   return context;

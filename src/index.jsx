@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
 import { ThemeProvider, createTheme } from '@mui/material/';
-import { TodoProvider } from './context/TodoContext';
+import { CartProvider } from './context/TodoContext';
 
 export const theme = createTheme({
   palette: {
@@ -20,9 +20,9 @@ export const theme = createTheme({
 render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <TodoProvider>
+      <CartProvider>
         <App />
-      </TodoProvider>
+      </CartProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Box, TextField, Button, CssBaseline } from '@mui/material';
-import { useTodos } from '../context/TodoContext';
+import { useCart } from '../context/TodoContext';
 
 function Form() {
-  const [todo, setTodo] = useState('');
-  const { handleAdd } = useTodos();
+  const [cart, setCart] = useState('');
+  const { handleAdd } = useCart();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAdd(todo);
-    setTodo('');
+    if (!cart) return;
+    handleAdd(cart);
+    setCart('');
   };
 
   return (
@@ -20,10 +21,10 @@ function Form() {
           margin="normal"
           required
           fullWidth
-          id="add todo"
-          label="What do we want to get done today?"
-          value={todo}
-          onChange={(e) => setTodo(e.target.value)}
+          id="add cart item"
+          label="What do we want to shop for today?"
+          value={cart}
+          onChange={(e) => setCart(e.target.value)}
         />
         <Button
           type="submit"
