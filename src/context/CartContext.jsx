@@ -2,15 +2,22 @@ import { createContext, useContext, useReducer } from 'react';
 const initialEntry = [];
 const CartContext = createContext();
 function cartReducer(state, action) {
-  console.log(state);
   switch (action.type) {
     case 'ADD':
       console.log(state.length);
       return [{ id: Date.now(), entry: action.payload, done: false }, ...state];
     case 'UPDATE':
       return state.map((item) => {
-        if (item.id === action.payload.item.id) {
-          const { entry, done } = action.payload.item;
+        if (item.id === action.payload.id) {
+          const { entry } = action.payload;
+
+          return { ...item, entry };
+        } else return item;
+      });
+    case 'CHECK':
+      return state.map((item) => {
+        if (item.id === action.payload.id) {
+          const { done, entry } = action.payload;
 
           return { ...item, entry, done };
         } else return item;
@@ -28,8 +35,14 @@ export const CartProvider = ({ children }) => {
   const handleUpdate = (update) => {
     dispatch({ type: 'UPDATE', payload: update });
   };
+  const handleComplete = (checked) => {
+    dispatch({ type: 'CHECK', payload: checked });
+  };
+
   return (
-    <CartContext.Provider value={{ cart, handleAdd }}>
+    <CartContext.Provider
+      value={{ cart, handleAdd, handleUpdate, handleComplete }}
+    >
       {children}
     </CartContext.Provider>
   );

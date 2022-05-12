@@ -1,5 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import { useCart } from '../context/TodoContext';
+import { useCart } from '../context/CartContext';
 import GridCard from './GridCard';
 
 function List() {

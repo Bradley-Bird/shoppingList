@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
 import { ThemeProvider, createTheme } from '@mui/material/';
-import { CartProvider } from './context/TodoContext';
+import { CartProvider } from './context/CartContext';
 
 export const theme = createTheme({
   palette: {
