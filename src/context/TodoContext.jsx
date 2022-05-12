@@ -1,9 +1,11 @@
 import { createContext, useContext, useReducer } from 'react';
-const initialEntry = [{ id: Date.now(), entry: '', done: false }];
+const initialEntry = [];
 const TodoContext = createContext();
 function todoReducer(state, action) {
+  console.log(state);
   switch (action.type) {
     case 'ADD':
+      console.log(state.length);
       return [{ id: Date.now(), entry: action.payload, done: false }, ...state];
 
     default:
