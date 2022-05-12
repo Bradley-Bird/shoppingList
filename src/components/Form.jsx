@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { Container, Box, TextField, Button } from '@mui/material';
-const handleSubmit = (e) => {
-  e.preventDefault();
-};
+import { useTodos } from '../context/TodoContext';
+
 function Form() {
   const [todo, setTodo] = useState('');
+  const { handleAdd } = useTodos();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleAdd(todo);
+    setTodo('');
+  };
+
   return (
     <Container>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
