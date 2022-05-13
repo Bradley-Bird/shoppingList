@@ -46,13 +46,19 @@ function GridCard({ item }) {
   let cardContent;
   if (editing) {
     cardContent = (
-      <Box component="form" onSubmit={update} noValidate sx={{ mt: 1 }}>
+      <Box
+        name="edit box"
+        component="form"
+        onSubmit={update}
+        noValidate
+        sx={{ mt: 1 }}
+      >
         <CardContent sx={{ flexGrow: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
-            id="add cart item"
+            id="update cart item"
             label="Need to change something?"
             value={newEntry}
             onChange={(e) => setNewEntry(e.target.value)}
@@ -107,6 +113,7 @@ function GridCard({ item }) {
   return (
     <Grid item key={item.id} xs={12} sm={6} md={4}>
       <Card
+        name={`card for ${item.entry}`}
         sx={{
           height: '100%',
           display: 'flex',
