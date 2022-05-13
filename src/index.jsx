@@ -7,13 +7,13 @@ import { CartProvider } from './context/CartContext';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#2E4052',
-      light: '#E7ECF2',
+      main: '#3d413a',
+      light: '#d2d5dd',
     },
     secondary: {
-      main: '#FFC857',
+      main: '#999ac6',
     },
-    background: { default: '#FFFFFF' },
+    background: { default: '#E8EBE4' },
   },
 });
 

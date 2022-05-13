@@ -14,6 +14,7 @@ import {
   TextField,
   Switch,
 } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 import { useCart } from '../context/CartContext';
 
 function GridCard({ item }) {
@@ -47,9 +48,6 @@ function GridCard({ item }) {
             value={newEntry}
             onChange={(e) => setNewEntry(e.target.value)}
           />
-          <Typography>
-            {item.done === true ? 'Completed' : 'Not finished'}
-          </Typography>
         </CardContent>
         <CardActions>
           <Button
@@ -70,9 +68,14 @@ function GridCard({ item }) {
           <Typography gutterBottom variant="h5" component="h2">
             {item?.entry}
           </Typography>
-          <Typography>
-            {item?.done === true ? 'Completed' : 'Not finished'}
-          </Typography>
+          {item?.done === true ? (
+            <Typography color="#da1b2b">
+              <CheckIcon color="primary" />
+              In cart
+            </Typography>
+          ) : (
+            <Typography color="primary">Not in cart</Typography>
+          )}
         </CardContent>
         <CardActions>
           <Button onClick={handleEdit} size="small">
@@ -101,6 +104,7 @@ function GridCard({ item }) {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
+          backgroundColor: '#d2d5dd',
         }}
       >
         {cardContent}
