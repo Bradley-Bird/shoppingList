@@ -17,7 +17,7 @@ import {
 import { useCart } from '../context/CartContext';
 
 function GridCard({ item }) {
-  const { handleUpdate, handleComplete } = useCart();
+  const { handleUpdate, handleComplete, handleDelete } = useCart();
   const [editing, setEditing] = useState(false);
   const [newEntry, setNewEntry] = useState(item.entry);
 
@@ -78,7 +78,9 @@ function GridCard({ item }) {
           <Button onClick={handleEdit} size="small">
             Edit
           </Button>
-          <Button size="small">Delete</Button>
+          <Button onClick={() => handleDelete(item.id)} size="small">
+            Delete
+          </Button>
           <Switch
             color="secondary"
             checked={item.done}

@@ -4,7 +4,6 @@ const CartContext = createContext();
 function cartReducer(state, action) {
   switch (action.type) {
     case 'ADD':
-      console.log(state.length);
       return [{ id: Date.now(), entry: action.payload, done: false }, ...state];
     case 'UPDATE':
       return state.map((item) => {
@@ -22,6 +21,8 @@ function cartReducer(state, action) {
           return { ...item, entry, done };
         } else return item;
       });
+    case 'DELETE':
+      return state.filter((item) => item.id !== action.payload);
     default:
       return state;
   }
@@ -38,10 +39,13 @@ export const CartProvider = ({ children }) => {
   const handleComplete = (checked) => {
     dispatch({ type: 'CHECK', payload: checked });
   };
+  const handleDelete = (id) => {
+    dispatch({ type: 'DELETE', payload: id });
+  };
 
   return (
     <CartContext.Provider
-      value={{ cart, handleAdd, handleUpdate, handleComplete }}
+      value={{ cart, handleAdd, handleUpdate, handleComplete, handleDelete }}
     >
       {children}
     </CartContext.Provider>
