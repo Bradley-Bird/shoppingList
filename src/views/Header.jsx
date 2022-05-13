@@ -13,7 +13,12 @@ function Header() {
     const doneItems = cart.filter((item) => item.done === true);
 
     setRemainingItems(cart.length - doneItems.length);
-  }, [, headerUpdate]);
+  }, []);
+  useEffect(() => {
+    const doneItems = cart.filter((item) => item.done === true);
+
+    setRemainingItems(cart.length - doneItems.length);
+  }, [headerUpdate]);
 
   return (
     <React.Fragment>

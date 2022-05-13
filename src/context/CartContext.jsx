@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 
 const initialEntry = [];
 const CartContext = createContext();
@@ -25,6 +31,12 @@ function cartReducer(state, action) {
       });
     case 'DELETE':
       return state.filter((item) => item.id !== action.payload);
+    case 'LOCAL_STORAGE':
+      return action.payload.map((item) => ({
+        id: item.id,
+        entry: item.entry,
+        done: item.done,
+      }));
     default:
       return state;
   }
@@ -47,7 +59,17 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'DELETE', payload: id });
     setHeaderUpdate(!headerUpdate);
   };
+  useEffect(() => {
+    if (cart !== initialEntry)
+      localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart) {
+      dispatch({ type: 'LOCAL_STORAGE', payload: cart });
+    }
+  }, []);
   return (
     <CartContext.Provider
       value={{
