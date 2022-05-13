@@ -13,11 +13,6 @@ function Header() {
     const doneItems = cart.filter((item) => item.done === true);
 
     setRemainingItems(cart.length - doneItems.length);
-  }, []);
-  useEffect(() => {
-    const doneItems = cart.filter((item) => item.done === true);
-
-    setRemainingItems(cart.length - doneItems.length);
   }, [headerUpdate]);
 
   return (
@@ -29,7 +24,9 @@ function Header() {
           align="center"
           sx={{ flex: 1 }}
         >
-          You have {remainingItems} items to go.
+          You have {remainingItems}{' '}
+          {remainingItems >= 2 || remainingItems === 0 ? 'items' : 'item'} to
+          go.
         </Typography>
         <Typography
           component="h2"

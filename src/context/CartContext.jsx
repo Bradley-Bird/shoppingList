@@ -68,6 +68,7 @@ export const CartProvider = ({ children }) => {
     const cart = JSON.parse(localStorage.getItem('cart'));
     if (cart) {
       dispatch({ type: 'LOCAL_STORAGE', payload: cart });
+      setHeaderUpdate(!headerUpdate);
     }
   }, []);
   return (
