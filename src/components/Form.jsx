@@ -4,13 +4,14 @@ import { useCart } from '../context/CartContext';
 
 function Form() {
   const [cart, setCart] = useState('');
-  const { handleAdd } = useCart();
+  const { handleAdd, setHeaderUpdate, headerUpdate } = useCart();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!cart) return;
     handleAdd(cart);
     setCart('');
+    setHeaderUpdate(!headerUpdate);
   };
 
   return (

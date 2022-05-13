@@ -1,15 +1,19 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import React, { useEffect, useState } from 'react';
+import { Toolbar, IconButton, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Typography from '@mui/material/Typography';
 import { useCart } from '../context/CartContext';
 
 function Header() {
-  const { cart } = useCart();
-  const remainingItems = cart.length - (cart.done === true);
+  const { cart, headerUpdate } = useCart();
+  const [remainingItems, setRemainingItems] = useState(
+    cart.length - (cart.done === true)
+  );
+
+  useEffect(() => {
+    const doneItems = cart.filter((item) => item.done === true);
+
+    setRemainingItems(cart.length - doneItems.length);
+  }, [, headerUpdate]);
 
   return (
     <React.Fragment>

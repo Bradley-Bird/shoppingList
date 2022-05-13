@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import {
-  Container,
   Box,
   Typography,
   Button,
-  Stack,
-  Divider,
   Grid,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   TextField,
@@ -18,8 +14,16 @@ import CheckIcon from '@mui/icons-material/Check';
 import { useCart } from '../context/CartContext';
 
 function GridCard({ item }) {
-  const { handleUpdate, handleComplete, handleDelete } = useCart();
+  const {
+    handleUpdate,
+    handleComplete,
+    handleDelete,
+    setHeaderUpdate,
+    headerUpdate,
+  } = useCart();
+
   const [editing, setEditing] = useState(false);
+
   const [newEntry, setNewEntry] = useState(item.entry);
 
   const handleEdit = () => {
@@ -32,6 +36,11 @@ function GridCard({ item }) {
       entry: newEntry,
     });
     setEditing(false);
+  };
+
+  const handleSwitch = (e) => {
+    handleComplete({ ...item, done: e.target.checked });
+    setHeaderUpdate(!headerUpdate);
   };
 
   let cardContent;
@@ -87,9 +96,7 @@ function GridCard({ item }) {
           <Switch
             color="secondary"
             checked={item.done}
-            onChange={(e) => {
-              handleComplete({ ...item, done: e.target.checked });
-            }}
+            onChange={handleSwitch}
             inputProps={{ 'aria-label': 'controlled' }}
           />
         </CardActions>

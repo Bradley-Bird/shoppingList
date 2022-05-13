@@ -1,6 +1,8 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, useState } from 'react';
+
 const initialEntry = [];
 const CartContext = createContext();
+
 function cartReducer(state, action) {
   switch (action.type) {
     case 'ADD':
@@ -27,7 +29,9 @@ function cartReducer(state, action) {
       return state;
   }
 }
+
 export const CartProvider = ({ children }) => {
+  const [headerUpdate, setHeaderUpdate] = useState(true);
   const [cart, dispatch] = useReducer(cartReducer, initialEntry);
 
   const handleAdd = (input) => {
@@ -41,11 +45,20 @@ export const CartProvider = ({ children }) => {
   };
   const handleDelete = (id) => {
     dispatch({ type: 'DELETE', payload: id });
+    setHeaderUpdate(!headerUpdate);
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, handleAdd, handleUpdate, handleComplete, handleDelete }}
+      value={{
+        cart,
+        handleAdd,
+        handleUpdate,
+        handleComplete,
+        handleDelete,
+        headerUpdate,
+        setHeaderUpdate,
+      }}
     >
       {children}
     </CartContext.Provider>
